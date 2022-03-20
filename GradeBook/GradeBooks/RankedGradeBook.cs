@@ -7,9 +7,10 @@ namespace GradeBook.GradeBooks
 {
     public class RankedGradeBook : BaseGradeBook
     {
-        public RankedGradeBook(string name) : base(name)
+        public RankedGradeBook(string name, bool IsWeight) : base(name,IsWeight)
         {
-            Type = GradeBookType.Ranked;
+            Type = GradeBookType.Ranked;            
+            IsWeighted = IsWeight;
         }
         public override char GetLetterGrade(double averageGrade)
         {
@@ -31,11 +32,13 @@ namespace GradeBook.GradeBooks
         }
         public override void CalculateStatistics()
         {
+            
             if (Students.Count < 5)
             {
-                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
+                Console.WriteLine("Ranked grading requires at least 5 students.");
             }
-            else 
+            
+            else  
             {
                 base.CalculateStatistics();
             }
@@ -45,7 +48,7 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
             {
-                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
+                Console.WriteLine("Ranked grading requires at least 5 students.");
             }
             else
             {

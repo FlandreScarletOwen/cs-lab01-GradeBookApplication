@@ -34,24 +34,38 @@ namespace GradeBook.UserInterfaces
         public static void CreateCommand(string command)
         {
             var parts = command.Split(' ');
-            if (parts.Length != 3)
+            if (parts.Length != 4)
             {
-                Console.WriteLine("Command not valid, Create requires a name and type of gradebook.");
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
                 return;
             }
             var name = parts[1];
-            var type = parts[2];            
-            if (type == "standard")
+            var type = parts[2];
+            var weight = parts[3];
+            if (type == "standard" && weight == "true")
             {
-                StandardGradeBook standardgradeBook = new StandardGradeBook(name);
+                
+                StandardGradeBook standardgradeBook = new StandardGradeBook(name, true);              
                 Console.WriteLine("Created standardgradeBook {0}.", name);
                 GradeBookUserInterface.CommandLoop(standardgradeBook);
             }
-            else if (type == "ranked")
+            else if (type == "ranked" && weight == "true")
             {
-                RankedGradeBook rankedgradeBook = new RankedGradeBook(name);
+                RankedGradeBook rankedgradeBook = new RankedGradeBook(name, true);
                 Console.WriteLine("Created rankedgradebook {0}.", name);
                 GradeBookUserInterface.CommandLoop(rankedgradeBook);
+            }
+            else if (type == "ranked" && weight == "false")
+            {
+                RankedGradeBook rankedgradeBook = new RankedGradeBook(name, false);
+                Console.WriteLine("Created rankedgradebook {0}.", name);
+                GradeBookUserInterface.CommandLoop(rankedgradeBook);
+            }
+            else if (type == "standard" && weight == "false")
+            {
+                StandardGradeBook standardgradeBook = new StandardGradeBook(name, false);
+                Console.WriteLine("Created standardgradeBook {0}.", name);
+                GradeBookUserInterface.CommandLoop(standardgradeBook);
             }
             else
             {

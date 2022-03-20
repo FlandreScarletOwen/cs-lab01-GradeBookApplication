@@ -12,11 +12,14 @@ namespace GradeBook.GradeBooks
     public abstract class BaseGradeBook
     {
         public string Name { get; set; }
+        public GradeBookType Type { get; set; }
+        public bool IsWeighted { get; set; }
         public List<Student> Students { get; set; }
 
-        public BaseGradeBook(string name)
+        public BaseGradeBook(string name, bool IsWeight)
         {
             Name = name;
+            IsWeighted = IsWeight;            
             Students = new List<Student>();
         }
 
@@ -217,9 +220,9 @@ namespace GradeBook.GradeBooks
             else
                 return 'F';
         }
-        public GradeBookType Type { get; set; }
+        
 
-        public bool IsWeighted { get; set; }
+        
        
         /// <summary>
         ///     Converts json to the appropriate gradebook type.
