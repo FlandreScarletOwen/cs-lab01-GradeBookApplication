@@ -19,7 +19,8 @@ namespace GradeBook.GradeBooks
         public BaseGradeBook(string name, bool IsWeight)
         {
             Name = name;
-            IsWeighted = IsWeight;            
+            IsWeighted = IsWeight;
+            
             Students = new List<Student>();
         }
 
@@ -109,18 +110,77 @@ namespace GradeBook.GradeBooks
 
         public virtual double GetGPA(char letterGrade, StudentType studentType)
         {
-            switch (letterGrade)
+
+
+            var weight = IsWeighted;
+            var Honors = StudentType.Honors;
+            var DualEnrolled = StudentType.DualEnrolled;
+            if(weight == true)
             {
-                case 'A':
-                    return 4;
-                case 'B':
-                    return 3;
-                case 'C':
-                    return 2;
-                case 'D':
-                    return 1;
-                case 'F':
-                    return 0;
+                if (studentType == Honors)
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 5;
+                        case 'B':
+                            return 4;
+                        case 'C':
+                            return 3;
+                        case 'D':
+                            return 2;
+                        case 'F':
+                            return 1;
+                    }
+                }
+                else if (studentType == DualEnrolled)
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 5;
+                        case 'B':
+                            return 4;
+                        case 'C':
+                            return 3;
+                        case 'D':
+                            return 2;
+                        case 'F':
+                            return 1;
+                    }
+                }
+                else
+                {
+                    switch (letterGrade)
+                    {
+                        case 'A':
+                            return 4;
+                        case 'B':
+                            return 3;
+                        case 'C':
+                            return 2;
+                        case 'D':
+                            return 1;
+                        case 'F':
+                            return 0;
+                    }
+                }
+            }            
+            else
+            {
+                switch (letterGrade)
+                {
+                    case 'A':
+                        return 4;
+                    case 'B':
+                        return 3;
+                    case 'C':
+                        return 2;
+                    case 'D':
+                        return 1;
+                    case 'F':
+                        return 0;
+                }
             }
             return 0;
         }
@@ -139,7 +199,7 @@ namespace GradeBook.GradeBooks
             foreach (var student in Students)
             {
                 student.LetterGrade = GetLetterGrade(student.AverageGrade);
-                student.GPA = GetGPA(student.LetterGrade, student.Type);
+                student.GPA = GetGPA(student.LetterGrade,  student.Type);
 
                 Console.WriteLine("{0} ({1}:{2}) GPA: {3}.", student.Name, student.LetterGrade, student.AverageGrade, student.GPA);
                 allStudentsPoints += student.AverageGrade;

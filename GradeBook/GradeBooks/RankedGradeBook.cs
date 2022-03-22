@@ -37,7 +37,10 @@ namespace GradeBook.GradeBooks
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
             }
-            
+            else if (IsWeighted == false)
+            {
+                Console.WriteLine("Ranked grading requires at least");
+            }
             else  
             {
                 base.CalculateStatistics();
